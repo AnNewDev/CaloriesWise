@@ -11,6 +11,13 @@
 - **Smart Suggestions**: Receive recommendations based on your dietary patterns and goals.
 - **Interactive Charts**: Visualize your progress with intuitive graphs and data analytics.
 
+## Color Codes 🪄
+- **text-color**: #eedaf2;
+- **background-color**: #0d050e;
+- **primary-color**: #cf93d9;
+- **secondary-color**: #7b612b;
+- **accent-color**: #b0c65c;
+
 ## Technologies Used 🛠️
 
 - **Frontend**: HTML, Bootstrap
