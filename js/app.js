@@ -1,25 +1,72 @@
 document.addEventListener('DOMContentLoaded', function() {
+  function checkLoginStatus() {
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    const currentPage = window.location.pathname;
+    if (!isLoggedIn && currentPage !== '/html/login.html') {
+      window.location.href = '/html/login.html';
+    }
+  }
+
+  
+
+  checkLoginStatus();
   const loginForm = document.getElementById('loginForm');
   const registerForm = document.getElementById('registerForm');
   const loginBtn = document.getElementById('loginBtn');
   const registerBtn = document.getElementById('registerBtn');
+
+
+
+  // Hiển thị form login theo dấu mặc định
+  loginForm.style = "display:block;"
+  registerForm.style = "display:none;"
 
     loginBtn.addEventListener('click', () => switchForm('login'));
     registerBtn.addEventListener('click', () => switchForm('register'));
 
     function switchForm(formType) {
         if (formType === 'login') {
-            loginForm.classList.add('active');
-            registerForm.classList.remove('active');
-            loginBtn.classList.add('active');
-            registerBtn.classList.remove('active');
+          loginForm.style = "display:block;"
+          registerForm.style = "display:none;"
+          loginBtn.classList.add("active")
+          registerBtn.classList.remove("active")
         } else {
-            registerForm.classList.add('active');
-            loginForm.classList.remove('active');
-            registerBtn.classList.add('active');
-            loginBtn.classList.remove('active');
+          loginForm.style = "display:none;"
+          registerForm.style = "display:block;"
+          loginBtn.classList.remove("active")
+          registerBtn.classList.add("active")
         }
     }
+
+
+    if (loginForm) {
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('loginUsername').value.trim();
+        const password = document.getElementById('loginPassword').value.trim();
+        const rememberMe = document.getElementById('rememberMe').checked;
+  
+        const userData = localStorage.getItem(username);
+        if (userData) {
+          const user = JSON.parse(userData);
+          if (user.password === password) {
+            alert(`Login successful! Welcome back, ${username}. You registered on ${new Date(user.registrationDate).toLocaleDateString()}`);
+            if (rememberMe) {
+              localStorage.setItem('rememberedUser', username);
+            } else {
+              localStorage.removeItem('rememberedUser');
+            }
+            localStorage.setItem('isLoggedIn', 'true'); // Set login status
+            window.location.href = '/index.html'; // Use absolute path
+          } else {
+            alert('Invalid password. Please try again.');
+          }
+        } else {
+          alert('User not found. Please register first.');
+        }
+      });
+    }
+  
 
     registerForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -45,32 +92,6 @@ document.addEventListener('DOMContentLoaded', function() {
         alert('Registration successful! You can now log in.');
         switchForm('login');
     });
-
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const username = document.getElementById('loginUsername').value.trim();
-        const password = document.getElementById('loginPassword').value.trim();
-        const rememberMe = document.getElementById('rememberMe').checked;
-
-        const userData = localStorage.getItem(username);
-        if (userData) {
-            const user = JSON.parse(userData);
-            if (user.password === password) {
-                alert(`Login successful! Welcome back, ${username}. You registered on ${new Date(user.registrationDate).toLocaleDateString()}`);
-                if (rememberMe) {
-                    localStorage.setItem('rememberedUser', username);
-                } else {
-                    localStorage.removeItem('rememberedUser');
-                }
-                window.location.href = '/index.html';
-            } else {
-                alert('Invalid password. Please try again.');
-            }
-        } else {
-            alert('User not found. Please register first.');
-        }
-    });
-
     const rememberedUser = localStorage.getItem('rememberedUser');
     if (rememberedUser) {
         document.getElementById('loginUsername').value = rememberedUser;
@@ -90,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const APP_ID = 'bffa389c';
     const API_KEY = 'c5d9fd18ec5ef3dbfe66d3716ebb61f9';
 
-    calorieCalculatorForm.addEventListener('submit', function(e) {
+    calorieCalculatorForm?.addEventListener('submit', function(e) {
       e.preventDefault();
       const foodItem = document.getElementById('foodItem').value;
 
@@ -175,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     };
   
-    scrollToTopBtn.addEventListener("click", function() {
+    scrollToTopBtn?.addEventListener("click", function() {
       window.scrollTo({
         top: 0,
         behavior: "smooth"
