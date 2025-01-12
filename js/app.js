@@ -56,8 +56,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
               localStorage.removeItem('rememberedUser');
             }
-            localStorage.setItem('isLoggedIn', 'true'); // Set login status
-            window.location.href = '/index.html'; // Use absolute path
+            localStorage.setItem('isLoggedIn', 'true');
+            window.location.href = '/index.html';
           } else {
             alert('Invalid password. Please try again.');
           }
