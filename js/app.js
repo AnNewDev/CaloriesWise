@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const isLoggedIn = localStorage.getItem('isLoggedIn');
     const currentPage = window.location.pathname;
     if (!isLoggedIn && currentPage !== '/html/login.html') {
-      window.location.href = '/html/login.html';
+      window.location.href = '../html/login.html';
     }
   }
 
